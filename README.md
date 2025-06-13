@@ -13,4 +13,4 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
    ```bash
    git clone https://github.com/xFanexx/meanings.git
 
-# ⚠️⚠️⚠️ THIS IS NOT ANYWHERE NEAR PROD READY ⚠️⚠️⚠️
+### ⚠️⚠️⚠️ THIS IS NOT ANYWHERE NEAR PROD READY ⚠️⚠️⚠️
