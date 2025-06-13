@@ -12,3 +12,5 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 1. Clone the repo:
    ```bash
    git clone https://github.com/xFanexx/meanings.git
+
+# ⚠️⚠️⚠️ THIS IS NOT ANYWHERE NEAR PROD READY ⚠️⚠️⚠️
