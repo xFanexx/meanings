@@ -297,7 +297,7 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
     )
     embed.add_field(
         name="⚡ Action Required",
-        value="Type `yes` to confirm deletion or `no` to cancel",
+        value="Type `yes` to confirm deletion or `no` to cancel.",
         inline=False,
     )
 
@@ -308,7 +308,7 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
     except asyncio.TimeoutError:
-        return await ctx.send(f"Took too long, deletiong cancelled.")
+        return await ctx.send(f"Took too long, deletion cancelled.")
      
     if answer.content.lower() == "yes":
         del meanings[word]
@@ -316,7 +316,7 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
 
         embed = discord.Embed(
             title="✅ Meaning Deleted",
-            description=f"`**{word.upper()}**` has been successfully deleted from the database!",
+            description=f"**`{word.upper()}`** has been successfully deleted from the database!",
             color=0x00FF00,
             timestamp=discord.utils.utcnow()
         )
@@ -327,11 +327,11 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
         meanings = await load_meanings()
         embed = discord.Embed(
         title="❌ Deletion Cancelled",
-        description=f"Deletion of `**{word.upper()}**` has been cancelled!",
+        description=f"Deletion of **`{word.upper()}`** has been cancelled!",
         color=0x00FF00,
         timestamp=discord.utils.utcnow())
-        await ctx.send(embed=embed)
         embed.set_footer(text=f"Cancelled by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=embed)
 
 
 @bot.command(name="stats")
