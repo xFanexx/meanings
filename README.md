@@ -14,4 +14,7 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
    git clone https://github.com/xFanexx/meanings.git
 
 > [!WARNING]
-> ⚠️⚠️⚠️ THIS IS NOT ANYWHERE NEAR PROD READY ⚠️⚠️⚠️
+> THIS MIGHT BE PROD READY, BUT YOU MIGHT CONSIDER RE-WRITING THE CODE AND SWITCHING TO A SQLITE OR POSTGRESQL DB.
+
+> [!WARNING]
+> THIS IS A PURE HOBBY BOT INTENDED TO HAVE SOME FUN IN DISCORD CHANNELS.
