@@ -27,3 +27,31 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 
 > [!NOTE]
 > THIS IS A PURE HOBBY BOT INTENDED TO HAVE SOME FUN IN DISCORD CHANNELS.
+
+## 👥 Contributors
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Sacul0457">
+        <img src="https://github.com/Sacul0457.png" width="100px;" style="border-radius:10px;" alt="Sacul0457"/>
+        <br />
+        <b>Sacul0457</b>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/xFanexx">
+        <img src="https://github.com/xFanexx.png" width="100px;" style="border-radius:10px;" alt="xFanexx"/>
+        <br />
+        <b>xFanexx</b>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Chandramauli-Arm64">
+        <img src="https://github.com/Chandramauli-Arm64.png" width="100px;" style="border-radius:10px;" alt="Chandramauli"/>
+        <br />
+        <b>Chandramauli</b>
+      </a>
+    </td>
+  </tr>
+</table>
