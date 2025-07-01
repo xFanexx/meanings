@@ -30,24 +30,34 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 
 ## 👥 Contributors
 
-<p align="center">
-
-  <a href="https://github.com/Sacul0457" title="Docs & Review">
-    <img src="https://avatars.githubusercontent.com/u/107633254?v=4" width="80px;" alt="Sacul0457"/>
-    <br /><sub><b>Sacul0457</b></sub><br />
-    <i>📝 Code & Review</i>
-  </a>&nbsp;&nbsp;&nbsp;
-
-  <a href="https://github.com/xFanexx" title="Creator / Core Dev">
-    <img src="https://avatars.githubusercontent.com/u/93697452?v=4" width="80px;" alt="xFanexx"/>
-    <br /><sub><b>xFanexx</b></sub><br />
-    <i>👑 Creator / Core Dev</i>
-  </a>&nbsp;&nbsp;&nbsp;
-
-  <a href="https://github.com/Chandramauli-Arm64" title="Maintainer / Enhancer">
-    <img src="https://avatars.githubusercontent.com/u/117088252?v=4" width="80px;" alt="Chandramauli"/>
-    <br /><sub><b>Chandramauli</b></sub><br />
-    <i>🛠️ Maintainer / Enhancer</i>
-  </a>
-
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Sacul0457">
+        <img src="https://avatars.githubusercontent.com/u/107633254?v=4" width="100px;" style="border-radius:10px;" alt="Sacul0457"/>
+        <br />
+        <b>Sacul0457</b>
+        <br />
+        <sub>📝 Docs & Review</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/xFanexx">
+        <img src="https://avatars.githubusercontent.com/u/93697452?v=4" width="100px;" style="border-radius:10px;" alt="xFanexx"/>
+        <br />
+        <b>xFanexx</b>
+        <br />
+        <sub>👑 Creator / Core Dev</sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Chandramauli-Arm64">
+        <img src="https://avatars.githubusercontent.com/u/117088252?v=4" width="100px;" style="border-radius:10px;" alt="Chandramauli"/>
+        <br />
+        <b>Chandramauli</b>
+        <br />
+        <sub>🛠️ Maintainer / Enhancer</sub>
+      </a>
+    </td>
+  </tr>
+</table>
