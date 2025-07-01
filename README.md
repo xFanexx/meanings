@@ -34,29 +34,23 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
   <tr>
     <td align="center">
       <a href="https://github.com/Sacul0457">
-        <img src="https://avatars.githubusercontent.com/u/107633254?v=4" width="100px;" style="border-radius:10px;" alt="Sacul0457"/>
+        <img src="https://github.com/Sacul0457.png" width="100px;" style="border-radius:10px;" alt="Sacul0457"/>
         <br />
         <b>Sacul0457</b>
-        <br />
-        <sub>📝 Docs & Review</sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/xFanexx">
-        <img src="https://avatars.githubusercontent.com/u/93697452?v=4" width="100px;" style="border-radius:10px;" alt="xFanexx"/>
+        <img src="https://github.com/xFanexx.png" width="100px;" style="border-radius:10px;" alt="xFanexx"/>
         <br />
         <b>xFanexx</b>
-        <br />
-        <sub>👑 Creator / Core Dev</sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Chandramauli-Arm64">
-        <img src="https://avatars.githubusercontent.com/u/117088252?v=4" width="100px;" style="border-radius:10px;" alt="Chandramauli"/>
+        <img src="https://github.com/Chandramauli-Arm64.png" width="100px;" style="border-radius:10px;" alt="Chandramauli"/>
         <br />
         <b>Chandramauli</b>
-        <br />
-        <sub>🛠️ Maintainer / Enhancer</sub>
       </a>
     </td>
   </tr>
