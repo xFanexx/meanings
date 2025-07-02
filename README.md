@@ -15,7 +15,8 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 - **Public Commands**: `?meaning`, `?list`, `?stats`, `?ping`  
 - **Admin Commands**: `?addmeaning`, `?deletemeaning`, `?yes`, `?no` (whitelisted only)  
 - **DND Status**: Watches servers with a "Do Not Disturb" flair  
-- **Scalable**: Handles multiple servers effortlessly  
+- **Scalable**: Handles multiple servers effortlessly 
+- [Commands](commands.md) Check this for all commands
 
 ## 🚀 Getting Started
 1. Clone the repo:
