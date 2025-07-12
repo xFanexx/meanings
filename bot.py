@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 import aiofiles # Use async file handling
 import asyncio
+import paginator #Import the paginator
+ButtonPaginator = paginator.ButtonPaginator #Import the Paginator Class
 
 # Load environment variables
 load_dotenv()
@@ -27,7 +29,7 @@ bot = MeaningsBot()
 
 # Whitelisted user IDs who can add meanings
 WHITELISTED_USERS = [
-    UR_USER_ID_HERE  # Add more user IDs here
+    UR_USER_ID_HERE # Add more user IDs here
 ]
 
 
@@ -228,22 +230,18 @@ async def list_meanings(ctx:commands.Context):
         await ctx.send(embed=embed)
         return
 
-    # Split into multiple embeds if too many words
+    # Uses pagination if too many words
     word_list = list(meanings.keys())
-    words_per_embed = 20
-
-    for i in range(0, len(word_list), words_per_embed):
-        chunk = word_list[i : i + words_per_embed]
-        word_text = "\n".join([f"1. {word.upper()}" for word in chunk])
-
-        embed = discord.Embed(
-            title=f"📝 Available Words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
-            description=word_text,
-            color=0x0099FF,
-        )
-        embed.set_footer(text="Use ?meaning [word] for details")
-        await ctx.send(embed=embed)
-
+    words_per_embed = 3
+    embeds =[
+        discord.Embed(title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
+                      description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
+                      color=0x0099FF
+                      )
+                      for i in range(0, len(word_list), words_per_embed)
+    ] #List of embeds
+    paginator = ButtonPaginator(embeds) 
+    await paginator.start(ctx.channel) #Start the paginator
 
 @bot.command(name="deletemeaning")
 async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
@@ -395,7 +393,6 @@ async def ping_command(ctx:commands.Context):
         title="🏓 Pong!", description=f"Latency: **{latency:.2f} ms**", color=0x00FF88
     )
     await ctx.send(embed=embed)
-
 
 # Start the bot
 if __name__ == "__main__":
