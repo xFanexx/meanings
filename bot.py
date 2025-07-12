@@ -29,7 +29,7 @@ bot = MeaningsBot()
 
 # Whitelisted user IDs who can add meanings
 WHITELISTED_USERS = [
-    802167689011134474  # Add more user IDs here
+    UR_USER_ID_HERE # Add more user IDs here
 ]
 
 
