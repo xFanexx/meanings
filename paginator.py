@@ -47,7 +47,7 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
         pages: Sequence[PageT_co],
         *,
         author_id: Optional[int] = None,
-        timeout = None,
+        timeout=None,
         delete_message_after: bool = False,
         per_page: int = 1,
     ) -> None:
@@ -63,7 +63,12 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
             total_pages += 1
 
         self.max_pages: int = total_pages
-        self._page_kwargs: Dict[str, Any] = {"content": None, "embeds": [], "files": [], "view": self}
+        self._page_kwargs: Dict[str, Any] = {
+            "content": None,
+            "embeds": [],
+            "files": [],
+            "view": self,
+        }
 
     def stop(self) -> None:
         self.message = None
@@ -74,7 +79,9 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
             return True
 
         if self.author_id != interaction.user.id:
-            await interaction.response.send_message("You cannot interact with this menu.", ephemeral=True)
+            await interaction.response.send_message(
+                "You cannot interact with this menu.", ephemeral=True
+            )
             return False
 
         return True
@@ -90,7 +97,9 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
             base = page_number * self.per_page
             return self.pages[base : base + self.per_page]
 
-    def format_page(self, page: Union[PageT_co, Sequence[PageT_co]]) -> Union[PageT_co, Sequence[PageT_co]]:
+    def format_page(
+        self, page: Union[PageT_co, Sequence[PageT_co]]
+    ) -> Union[PageT_co, Sequence[PageT_co]]:
         return page
 
     async def get_page_kwargs(
@@ -98,7 +107,12 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
     ) -> Dict[str, Any]:
         formatted_page: Union[PageT_co, Sequence[PageT_co]]
         if not skip_formatting:
-            self._page_kwargs = {"content": None, "embeds": [], "files": [], "view": self}
+            self._page_kwargs = {
+                "content": None,
+                "embeds": [],
+                "files": [],
+                "view": self,
+            }
             formatted_page = await discord.utils.maybe_coroutine(self.format_page, page)
         else:
             formatted_page = page
@@ -123,13 +137,17 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
         elif isinstance(formatted_page, dict):
             return formatted_page
         else:
-            raise TypeError("Page content must be one of str, discord.Embed, list[discord.Embed], or dict")
+            raise TypeError(
+                "Page content must be one of str, discord.Embed, list[discord.Embed], or dict"
+            )
 
         return self._page_kwargs
 
     def update_buttons(self) -> None:
         self.previous_page.disabled = self.max_pages < 2 or self.current_page <= 0
-        self.next_page.disabled = self.max_pages < 2 or self.current_page >= self.max_pages - 1
+        self.next_page.disabled = (
+            self.max_pages < 2 or self.current_page >= self.max_pages - 1
+        )
 
     async def update_page(self, interaction: Interaction) -> None:
         if self.message is None:
@@ -142,22 +160,30 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
         await interaction.response.edit_message(**kwargs)
 
     @discord.ui.button(label="Previous", style=discord.ButtonStyle.blurple, emoji="⬅️")
-    async def previous_page(self, interaction: Interaction, _: discord.ui.Button[Self]) -> None:
+    async def previous_page(
+        self, interaction: Interaction, _: discord.ui.Button[Self]
+    ) -> None:
         self.current_page -= 1
         await self.update_page(interaction)
 
     @discord.ui.button(label="Next", style=discord.ButtonStyle.blurple, emoji="➡️")
-    async def next_page(self, interaction: Interaction, _: discord.ui.Button[Self]) -> None:
+    async def next_page(
+        self, interaction: Interaction, _: discord.ui.Button[Self]
+    ) -> None:
         self.current_page += 1
         await self.update_page(interaction)
 
     @discord.ui.button(label="Stop", style=discord.ButtonStyle.red, emoji="⏹️")
-    async def stop_paginator(self, interaction: Interaction, _: discord.ui.Button[Self]) -> None:
+    async def stop_paginator(
+        self, interaction: Interaction, _: discord.ui.Button[Self]
+    ) -> None:
         if self.delete_message_after:
             if self.message is not None:
                 await self.message.delete()
         else:
-            await interaction.response.send_message("The caselist button has stopped.", ephemeral=True)
+            await interaction.response.send_message(
+                "The caselist button has stopped.", ephemeral=True
+            )
         await interaction.message.edit(view=None)
 
     def reset_files(self, page_kwargs: dict[str, Any]) -> None:
@@ -188,6 +214,8 @@ class ButtonPaginator(Generic[PageT_co], discord.ui.View):
         elif isinstance(obj, Messageable):
             self.message = await obj.send(**kwargs, **send_kwargs)
         else:
-            raise TypeError(f"Expected Interaction or Messageable, got {obj.__class__.__name__}")
+            raise TypeError(
+                f"Expected Interaction or Messageable, got {obj.__class__.__name__}"
+            )
 
         return self.message
