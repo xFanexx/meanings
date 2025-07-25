@@ -497,7 +497,7 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
         return await ctx.send(f"Took too long, deletion cancelled.")
      
     if answer.content.lower() == "yes":
-        del meanings[word]
+        del meanings[word.lower()]
         await save_meanings(meanings)
 
         embed = discord.Embed(
