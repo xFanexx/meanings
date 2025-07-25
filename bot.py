@@ -24,13 +24,6 @@ class MeaningsBot(commands.Bot):
         asyncio.get_event_loop(). set_debug(True) #Set up debugging for blocking code
         global up_time
         up_time = discord.utils.utcnow().timestamp()
-        
-        # Sync slash commands
-        try:
-            synced = await self.tree.sync()
-            print(f"Synced {len(synced)} slash command(s)")
-        except Exception as e:
-            print(f"Failed to sync slash commands: {e}")
 
 bot = MeaningsBot()
 
@@ -38,6 +31,16 @@ bot = MeaningsBot()
 WHITELISTED_USERS = [
     ADD_USER_ID_HERE # Add more user IDs here
 ]
+
+@bot.command()
+@commands.is_owner() #Only allow the the owner of the bot to sync
+async def sync(ctx:commands.Context):
+    await ctx.message.delete()
+    try:
+        synced = await bot.tree.sync()
+        await ctx.send(f"Synced len({synced}) commands!", delete_after=5.0)
+    except Exception as e:
+        await ctx.send(f"An error occurred: {e}")
 
 
 # Load meanings from JSON file
