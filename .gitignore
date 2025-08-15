@@ -1,0 +1,31 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment (Poetry keeps venv outside by default)
+# If you configure Poetry to create venv inside the project, ignore it
+.venv/
+
+# Poetry lock & pyproject.toml are needed for version control, don't ignore them
+# poetry.lock
+
+# Env files
+.env
+.env.*.local
+
+# Logs
+*.log
+
+# Mac/Linux/Windows system files
+.DS_Store
+Thumbs.db
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Termux cache or temp files (optional)
+.termux/

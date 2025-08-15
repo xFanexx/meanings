@@ -1,0 +1,20 @@
+[project]
+name = "meanings"
+version = "1.0.0a1"
+description = "A sleek Discord bot to manage and explore slang meanings, built with Python."
+authors = [
+    {name = "xFanexx & Sacul"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "discord-py (>=2.5.2,<3.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "aiofiles (>=24.1.0,<25.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
