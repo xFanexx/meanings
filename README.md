@@ -52,7 +52,7 @@ Check their offical **Documentation** for more information. [Python-Poerty](http
 pip install peotry
 ```
 
-> [!IMOPRTANT]
+> [!IMPORTANT]
 > When you are installing **Poetry** via `pip`, always check if **Rust** is installed in your system because one of its dependencies (`maturin`) needs Rust to build and top of that do not forget to update `pip` or its **prebuilt wheels**. So, you don't get any errors.
 
 ## Install dependencies
@@ -87,7 +87,7 @@ pip install --upgrade <package-name>
 pip install --upgrade discord.py
 ```py
 
-Then regenerate `requirements.txt`:
+#Then regenerate `requirements.txt`:
 
 ```py
 pip freeze > requirements.txt
