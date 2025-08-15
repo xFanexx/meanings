@@ -7,21 +7,164 @@
   <img src="https://img.shields.io/github/repo-size/xFanexx/meanings?style=flat-square&color=orange" alt="Repo Size" />
   <img src="https://img.shields.io/github/languages/code-size/xFanexx/meanings?style=flat-square&color=purple" alt="Code Size" />
   <img src="https://img.shields.io/github/commit-activity/y/xFanexx/meanings?style=flat-square&color=red" alt="Commit Activity" />
-</p>    
+</p>
 
 A sleek Discord bot to manage and explore slang meanings, built with Python. Offers public commands for all and admin tools for whitelisted users. Runs on Linux with systemd support!
 
 ## ✨ Features
-- **Public Commands**: `?meaning`, `?list`, `?stats`, `?ping`  
-- **Admin Commands**: `?addmeaning`, `?deletemeaning`, `?yes`, `?no` (whitelisted only)  
-- **DND Status**: Watches servers with a "Do Not Disturb" flair  
-- **Scalable**: Handles multiple servers effortlessly 
+- **Public Commands**: `?meaning`, `?list`, `?stats`, `?ping`
+- **Admin Commands**: `?addmeaning`, `?deletemeaning`, `?yes`, `?no` (whitelisted only)
+- **DND Status**: Watches servers with a "Do Not Disturb" flair
+- **Scalable**: Handles multiple servers effortlessly
 - [Commands](commands.md) Check this for all commands
+- **Async file** handling with `aiofiles`
+- Fully **Poetry-managed** project with isolated dependencies
+
+## Requirements
+
+- **Python** 3.12+
+- **Poetry** 2.x
+- **Discord bot token** (`.env` file)
 
 ## 🚀 Getting Started
 1. Clone the repo:
    ```sh
    git clone https://github.com/xFanexx/meanings.git
+   ```
+## Install Peotry (if not installed)
+1. From offical site:
+  - Linux, macOS, Windows (WSL)
+    ```sh
+    curl -sSL https://install.python-poetry.org | python3 -
+    ```
+  - Windows (Powershell)
+    ```sh
+    (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+    ```
+
+> [!NOTE]
+> If you have installed Python through the Microsoft Store, replace `py` with `python` in the command above.
+
+Check their offical **Documentation** for more information. [Python-Poerty](https://python-poetry.org/docs/#installing-with-the-official-installer)
+
+2. With **PIP**:
+```py
+pip install peotry
+```
+
+> [!IMOPRTANT]
+> When you are installing **Poetry** via `pip`, always check if **Rust** is installed in your system because one of its dependencies (`maturin`) needs Rust to build and top of that do not forget to update `pip` or its **prebuilt wheels**. So, you don't get any errors.
+
+## Install dependencies
+
+```py
+peotry install
+```
+
+> [!NOTE]
+> This installs all dependencies listed in `pyproject.toml` inside a virtual environment.
+
+# For Non-Poetry Users
+
+If you don’t have **Poetry** installed, you can still run this project using only `pip` and `requirements.txt`.
+
+### Installation
+
+```py
+pip install -r requirements.txt
+```
+
+## Updating Dependencies
+
+1. Upgrade a single dependency:
+
+```py
+pip install --upgrade <package-name>
+```
+**Example**:
+
+```py
+pip install --upgrade discord.py
+```py
+
+Then regenerate `requirements.txt`:
+
+```py
+pip freeze > requirements.txt
+```
+
+2. Upgrade all dependencies:
+
+```py
+pip install --upgrade -r requirements.txt
+```
+
+> [!WARNING]
+> This respects the pinned versions in `requirements.txt`. If you want latest versions, remove version numbers from the file before running.
+
+
+### Regenerate requirements.txt
+
+After any upgrade:
+
+```py
+pip freeze > requirements.txt
+```
+
+> [!TIP]
+> Using `pyproject.toml` with **Poetry** is recommended for consistent, reproducible environments — but `requirements.txt` works for quick installs and deployment.
+
+# Environment Variables
+Create a `.env` file in the project root:
+
+```env
+DISCORD_TOKEN=your_discord_token_here
+```
+
+> [!IMPORTANT]
+> Do not commit `.env` to version control.
+
+# Updating Dependencies
+
+- To update a single dependency:
+
+```py
+poetry update discord-py
+```
+
+- To update all dependencies:
+
+```py
+poetry update
+```
+
+- Regenerate requirements.txt after updates:
+
+```bash
+source $(poetry env info --path)/bin/activate
+pip freeze > requirements.txt
+deactivate
+```
+
+---
+
+# Contributing
+
+- Fork the Repo.
+
+- Make sure `.env` and `.venv/` are ignored in **Git** (`.gitignore` is included).
+
+- Commit `pyproject.toml` and `poetry.lock` to track dependencies.
+
+- PR should be **clean**, **concise** and **descriptive**.
+
+- Use **Poetry** for adding new packages in your project:
+
+```bash
+poetry add <package-name>      # normal dependency
+poetry add --dev <package-name> # dev dependency
+```
+
 
 > [!WARNING]
 > THIS MIGHT BE PRODUCTION READY, BUT YOU MIGHT CONSIDER RE-WRITING THE CODE AND SWITCHING TO A SQLITE OR POSTGRESQL DB.
