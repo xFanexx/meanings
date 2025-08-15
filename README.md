@@ -85,9 +85,9 @@ pip install --upgrade <package-name>
 
 ```py
 pip install --upgrade discord.py
-```py
+```
 
-#Then regenerate `requirements.txt`:
+Then regenerate `requirements.txt`:
 
 ```py
 pip freeze > requirements.txt
