@@ -32,7 +32,7 @@ class MeaningsBot(commands.Bot):
 bot = MeaningsBot()
 
 # Whitelisted user IDs who can add meanings
-WHITELISTED_USERS = [ADD_USER_ID_HERE]  # Add more user IDs here
+WHITELISTED_USERS = [ADD_USER_ID_HERE]  # Add more user IDs here # noqa: F821
 
 
 @bot.command()
@@ -141,9 +141,11 @@ class AddMeaningModal(discord.ui.Modal, title="Add New Meaning"):
         embed.add_field(
             name="Meaning",
             value=(
-                f"{f"- {self.meaning.value[:100]}" + "..."\
-                if len(self.meaning.value) > 100\
-                else f"- {self.meaning.value}"}"
+                f"{
+                    f'- {self.meaning.value[:100]}' + '...'
+                    if len(self.meaning.value) > 100
+                    else f'- {self.meaning.value}'
+                }"
             ),
             inline=False,
         )
@@ -320,15 +322,15 @@ async def meaning_command(ctx: commands.Context, *, word: str = None):
             color=0x00FF88,
         )
         # Additional fields if available
-        embed.add_field(name="📖 Meaning", value=f"- {meaning_data["meaning"]}")
+        embed.add_field(name="📖 Meaning", value=f"- {meaning_data['meaning']}")
         if "example" in meaning_data:
             embed.add_field(
-                name="💡 Example", value=f"- {meaning_data["example"]}", inline=False
+                name="💡 Example", value=f"- {meaning_data['example']}", inline=False
             )
 
         if "category" in meaning_data:
             embed.add_field(
-                name="🏷️ Category", value=f"- {meaning_data["category"]}", inline=True
+                name="🏷️ Category", value=f"- {meaning_data['category']}", inline=True
             )
         embed.set_footer(text="Meanings Bot | Know your slang!")
         embed.set_footer(
@@ -434,8 +436,8 @@ async def list_meanings(ctx: commands.Context):
     words_per_embed = 3
     embeds = [
         discord.Embed(
-            title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
-            description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
+            title=f"Available words ({i + 1}-{min(i + words_per_embed, len(word_list))} of {len(word_list)})",
+            description=f"1. {'\n- '.join(word.upper() for word in word_list[i : i + words_per_embed])}",
             color=0x0099FF,
         )
         for i in range(0, len(word_list), words_per_embed)
@@ -512,7 +514,7 @@ async def delete_meaning_command(ctx: commands.Context, *, word: str = None):
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
     except asyncio.TimeoutError:
-        return await ctx.send(f"Took too long, deletion cancelled.")
+        return await ctx.send(f"Took too long, deletion cancelled.")  # noqa: F541
 
     if answer.content.lower() == "yes":
         del meanings[word.lower()]
@@ -611,7 +613,7 @@ async def delete_origin_command(ctx: commands.Context, *, word: str = None):
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
     except asyncio.TimeoutError:
-        return await ctx.send(f"Took too long, deletion cancelled.")
+        return await ctx.send(f"Took too long, deletion cancelled.")  # noqa: F541
 
     if answer.content.lower() == "yes":
         del origins[word_lower]
@@ -670,7 +672,9 @@ async def stats_command(ctx: commands.Context):
                             \n**Users:** {len(bot.users)}\n**Uptime:** {uptime_to_words}",
         color=0x00FF88,
     )
-    embed.set_author(name=f"Meannings Bot", icon_url=bot.user.display_avatar.url)
+    embed.set_author(
+        name=f"Meannings Bot", icon_url=bot.user.display_avatar.url
+    )  # noqa: F541
     embed.set_thumbnail(url=bot.user.display_avatar.url)
     await ctx.send(embed=embed)
 
