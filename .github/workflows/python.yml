@@ -13,7 +13,7 @@ on:
   workflow_dispatch: # allows manual trigger
 
 jobs:
-  update-dependencies:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.12
+          python-version: "3.12"
 
       - name: Cache Poetry Dependencies
         uses: actions/cache@v4
@@ -40,8 +40,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
 
-      - name: Install Dependencies
+      - name: Install Project Dependencies
         run: poetry install --no-root
+
+      - name: Install Ruff (CI only)
+        run: pip install ruff
 
       - name: Run Black (Check formatting)
         run: |
@@ -49,14 +52,30 @@ jobs:
 
       - name: Run Ruff (Lint)
         run: |
-          poetry run ruff check --format github . || (echo "Fix Ruff issues before merging." && exit 1)
+          ruff check --format github . || (echo "Fix Ruff issues before merging." && exit 1)
 
-      - name: Update dependencies (only for schedule/manual)
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+  update-dependencies:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Update dependencies
         run: poetry update
 
       - name: Commit updated poetry.lock
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -64,7 +83,6 @@ jobs:
           git diff --quiet || git commit -m "chore: update dependencies [skip ci]"
 
       - name: Create Pull Request
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: dependency-update

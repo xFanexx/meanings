@@ -3,10 +3,11 @@ from discord.ext import commands
 import json
 import os
 from dotenv import load_dotenv
-import aiofiles # Use async file handling
+import aiofiles  # Use async file handling
 import asyncio
-import paginator #Import the paginator
-ButtonPaginator = paginator.ButtonPaginator #Import the Paginator Class
+import paginator  # Import the paginator
+
+ButtonPaginator = paginator.ButtonPaginator  # Import the Paginator Class
 
 # Load environment variables
 load_dotenv()
@@ -15,26 +16,28 @@ load_dotenv()
 
 up_time = 0
 
+
 class MeaningsBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
         intents.message_content = True
         super().__init__(command_prefix="?", intents=intents)
+
     async def setup_hook(self):
-        asyncio.get_event_loop(). set_debug(True) #Set up debugging for blocking code
+        asyncio.get_event_loop().set_debug(True)  # Set up debugging for blocking code
         global up_time
         up_time = discord.utils.utcnow().timestamp()
+
 
 bot = MeaningsBot()
 
 # Whitelisted user IDs who can add meanings
-WHITELISTED_USERS = [
-    ADD_USER_ID_HERE # Add more user IDs here
-]
+WHITELISTED_USERS = [ADD_USER_ID_HERE]  # Add more user IDs here
+
 
 @bot.command()
-@commands.is_owner() #Only allow the the owner of the bot to sync
-async def sync(ctx:commands.Context):
+@commands.is_owner()  # Only allow the the owner of the bot to sync
+async def sync(ctx: commands.Context):
     await ctx.message.delete()
     try:
         synced = await bot.tree.sync()
@@ -56,7 +59,7 @@ async def load_meanings():
 # Save meanings to JSON file
 async def save_meanings(meanings):
     async with aiofiles.open("meanings.json", "w", encoding="utf-8") as f:
-        data =json.dumps(meanings, indent=2, ensure_ascii=False)
+        data = json.dumps(meanings, indent=2, ensure_ascii=False)
         await f.write(data)
 
 
@@ -133,7 +136,7 @@ class AddMeaningModal(discord.ui.Modal, title="Add New Meaning"):
         embed = discord.Embed(
             title=f"✅ Successfully added `{self.word.value.upper()}`!",
             color=0x00FF00,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
         embed.add_field(
             name="Meaning",
@@ -144,7 +147,10 @@ class AddMeaningModal(discord.ui.Modal, title="Add New Meaning"):
             ),
             inline=False,
         )
-        embed.set_footer(text=f"Added by @{interaction.user}", icon_url=interaction.user.display_avatar.url)
+        embed.set_footer(
+            text=f"Added by @{interaction.user}",
+            icon_url=interaction.user.display_avatar.url,
+        )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
 
@@ -161,7 +167,7 @@ class AddOriginModal(discord.ui.Modal, title="Add Slang Origin"):
 
     origin = discord.ui.TextInput(
         label="Origin/Background",
-        placeholder='Enter the historical or cultural origin',
+        placeholder="Enter the historical or cultural origin",
         style=discord.TextStyle.paragraph,
         required=True,
         max_length=1500,
@@ -203,7 +209,7 @@ class AddOriginModal(discord.ui.Modal, title="Add Slang Origin"):
         embed = discord.Embed(
             title=f"✅ Successfully added origin for `{self.word.value.upper()}`!",
             color=0x00FF00,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
         embed.add_field(
             name="Origin",
@@ -214,7 +220,10 @@ class AddOriginModal(discord.ui.Modal, title="Add Slang Origin"):
             ),
             inline=False,
         )
-        embed.set_footer(text=f"Added by @{interaction.user}", icon_url=interaction.user.display_avatar.url)
+        embed.set_footer(
+            text=f"Added by @{interaction.user}",
+            icon_url=interaction.user.display_avatar.url,
+        )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
 
@@ -232,7 +241,10 @@ async def on_ready():
 
 
 # Slash command for slang origins
-@bot.tree.command(name="slangorigin", description="Get the historical or cultural origin of a slang term")
+@bot.tree.command(
+    name="slangorigin",
+    description="Get the historical or cultural origin of a slang term",
+)
 async def slang_origin_slash(interaction: discord.Interaction, word: str):
     """Shows the origin of a slang word/phrase"""
     origins = await load_slang_origins()
@@ -244,27 +256,23 @@ async def slang_origin_slash(interaction: discord.Interaction, word: str):
         embed = discord.Embed(
             title=f"🏛️ Origin of `{word.upper()}`",
             color=0x9932CC,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
-        
+
         embed.add_field(
             name="📜 Historical/Cultural Origin",
             value=origin_data["origin"],
-            inline=False
+            inline=False,
         )
 
         if "time_period" in origin_data:
             embed.add_field(
-                name="📅 Time Period",
-                value=origin_data["time_period"],
-                inline=True
+                name="📅 Time Period", value=origin_data["time_period"], inline=True
             )
 
         if "culture" in origin_data:
             embed.add_field(
-                name="🌍 Cultural Context",
-                value=origin_data["culture"],
-                inline=True
+                name="🌍 Cultural Context", value=origin_data["culture"], inline=True
             )
 
         # Check if there's also a meaning for this word
@@ -273,7 +281,7 @@ async def slang_origin_slash(interaction: discord.Interaction, word: str):
             embed.add_field(
                 name="💡 Current Meaning",
                 value=meanings[word_lower]["meaning"],
-                inline=False
+                inline=False,
             )
 
         embed.set_footer(text="Slang Origins Database | Know your history!")
@@ -289,7 +297,7 @@ async def slang_origin_slash(interaction: discord.Interaction, word: str):
 
 
 @bot.command(name="meaning")
-async def meaning_command(ctx:commands.Context, *, word : str =None):
+async def meaning_command(ctx: commands.Context, *, word: str = None):
     """Shows the meaning of a word/phrase"""
 
     if not word:
@@ -312,8 +320,7 @@ async def meaning_command(ctx:commands.Context, *, word : str =None):
             color=0x00FF88,
         )
         # Additional fields if available
-        embed.add_field(name="📖 Meaning",
-                        value=f"- {meaning_data["meaning"]}")
+        embed.add_field(name="📖 Meaning", value=f"- {meaning_data["meaning"]}")
         if "example" in meaning_data:
             embed.add_field(
                 name="💡 Example", value=f"- {meaning_data["example"]}", inline=False
@@ -324,7 +331,9 @@ async def meaning_command(ctx:commands.Context, *, word : str =None):
                 name="🏷️ Category", value=f"- {meaning_data["category"]}", inline=True
             )
         embed.set_footer(text="Meanings Bot | Know your slang!")
-        embed.set_footer(text=f"Requested by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+        embed.set_footer(
+            text=f"Requested by @{ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
         await ctx.send(embed=embed)
     else:
         embed = discord.Embed(
@@ -337,7 +346,7 @@ async def meaning_command(ctx:commands.Context, *, word : str =None):
 
 
 @bot.command(name="addmeaning")
-async def add_meaning_modal(ctx:commands.Context):
+async def add_meaning_modal(ctx: commands.Context):
     """Opens a modal to add a new meaning (whitelisted users only)"""
 
     # Check if user is whitelisted
@@ -387,7 +396,8 @@ class ModalView(discord.ui.View):
         label="Add Meaning", style=discord.ButtonStyle.primary, emoji="➕"
     )
     async def add_meaning_button(
-        self, interaction: discord.Interaction, button: discord.ui.Button):
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
         await interaction.response.send_modal(self.modal)
 
 
@@ -400,14 +410,15 @@ class OriginModalView(discord.ui.View):
         label="Add Origin", style=discord.ButtonStyle.secondary, emoji="🏛️"
     )
     async def add_origin_button(
-        self, interaction: discord.Interaction, button: discord.ui.Button):
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
         await interaction.response.send_modal(self.modal)
 
 
 @bot.command(name="list")
-async def list_meanings(ctx:commands.Context):
+async def list_meanings(ctx: commands.Context):
     """Shows all available words"""
-    meanings : dict = await load_meanings()
+    meanings: dict = await load_meanings()
 
     if not meanings:
         embed = discord.Embed(
@@ -421,18 +432,20 @@ async def list_meanings(ctx:commands.Context):
     # Uses pagination if too many words
     word_list = list(meanings.keys())
     words_per_embed = 3
-    embeds =[
-        discord.Embed(title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
-                      description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
-                      color=0x0099FF
-                      )
-                      for i in range(0, len(word_list), words_per_embed)
-    ] #List of embeds
-    paginator = ButtonPaginator(embeds) 
-    await paginator.start(ctx.channel) #Start the paginator
+    embeds = [
+        discord.Embed(
+            title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
+            description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
+            color=0x0099FF,
+        )
+        for i in range(0, len(word_list), words_per_embed)
+    ]  # List of embeds
+    paginator = ButtonPaginator(embeds)
+    await paginator.start(ctx.channel)  # Start the paginator
+
 
 @bot.command(name="deletemeaning")
-async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
+async def delete_meaning_command(ctx: commands.Context, *, word: str = None):
     """Deletes a meaning from the database (whitelisted users only)"""
 
     # Check if user is whitelisted
@@ -489,13 +502,18 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
 
     await ctx.send(embed=embed)
 
-    def check(msg:discord.Message):
-        return msg.channel == ctx.channel and msg.author == ctx.author and  msg.content.lower() in ("yes", "no") 
+    def check(msg: discord.Message):
+        return (
+            msg.channel == ctx.channel
+            and msg.author == ctx.author
+            and msg.content.lower() in ("yes", "no")
+        )
+
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
     except asyncio.TimeoutError:
         return await ctx.send(f"Took too long, deletion cancelled.")
-     
+
     if answer.content.lower() == "yes":
         del meanings[word.lower()]
         await save_meanings(meanings)
@@ -504,19 +522,24 @@ async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
             title="✅ Meaning Deleted",
             description=f"**`{word.upper()}`** has been successfully deleted from the database!",
             color=0x00FF00,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
-        embed.set_footer(text=f"Deleted by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+        embed.set_footer(
+            text=f"Deleted by @{ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
         await ctx.send(embed=embed)
 
     else:
         meanings = await load_meanings()
         embed = discord.Embed(
-        title="❌ Deletion Cancelled",
-        description=f"Deletion of **`{word.upper()}`** has been cancelled!",
-        color=0x00FF00,
-        timestamp=discord.utils.utcnow())
-        embed.set_footer(text=f"Cancelled by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+            title="❌ Deletion Cancelled",
+            description=f"Deletion of **`{word.upper()}`** has been cancelled!",
+            color=0x00FF00,
+            timestamp=discord.utils.utcnow(),
+        )
+        embed.set_footer(
+            text=f"Cancelled by @{ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
         await ctx.send(embed=embed)
 
 
@@ -579,7 +602,11 @@ async def delete_origin_command(ctx: commands.Context, *, word: str = None):
     await ctx.send(embed=embed)
 
     def check(msg: discord.Message):
-        return msg.channel == ctx.channel and msg.author == ctx.author and msg.content.lower() in ("yes", "no")
+        return (
+            msg.channel == ctx.channel
+            and msg.author == ctx.author
+            and msg.content.lower() in ("yes", "no")
+        )
 
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
@@ -594,9 +621,11 @@ async def delete_origin_command(ctx: commands.Context, *, word: str = None):
             title="✅ Origin Deleted",
             description=f"Origin for **`{word.upper()}`** has been successfully deleted from the database!",
             color=0x00FF00,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
-        embed.set_footer(text=f"Deleted by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+        embed.set_footer(
+            text=f"Deleted by @{ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
         await ctx.send(embed=embed)
 
     else:
@@ -604,14 +633,16 @@ async def delete_origin_command(ctx: commands.Context, *, word: str = None):
             title="❌ Deletion Cancelled",
             description=f"Deletion of **`{word.upper()}`** origin has been cancelled!",
             color=0x00FF00,
-            timestamp=discord.utils.utcnow()
+            timestamp=discord.utils.utcnow(),
         )
-        embed.set_footer(text=f"Cancelled by @{ctx.author}", icon_url=ctx.author.display_avatar.url)
+        embed.set_footer(
+            text=f"Cancelled by @{ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
         await ctx.send(embed=embed)
 
 
 @bot.command(name="stats")
-async def stats_command(ctx:commands.Context):
+async def stats_command(ctx: commands.Context):
     """Shows bot statistics"""
     global up_time
     """Get uptime and convert to words"""
@@ -629,21 +660,23 @@ async def stats_command(ctx:commands.Context):
         up_time_list.append(f"{minutes} minute{'s' if minutes > 1 else ''}")
     if seconds > 0:
         up_time_list.append(f"{seconds} second{'s' if seconds != 1 else ''}")
-    uptime_to_words = ' and '.join(up_time_list)
-    meanings :dict = await load_meanings()
+    uptime_to_words = " and ".join(up_time_list)
+    meanings: dict = await load_meanings()
     origins: dict = await load_slang_origins()
 
-    embed = discord.Embed(title="📊 Bot Statistics", 
-                          description=f">>> **Total Words:** {len(meanings.keys())}\n**Total Origins:** {len(origins.keys())}\n**Servers:** {len(bot.guilds)}\
+    embed = discord.Embed(
+        title="📊 Bot Statistics",
+        description=f">>> **Total Words:** {len(meanings.keys())}\n**Total Origins:** {len(origins.keys())}\n**Servers:** {len(bot.guilds)}\
                             \n**Users:** {len(bot.users)}\n**Uptime:** {uptime_to_words}",
-                          color=0x00FF88)
+        color=0x00FF88,
+    )
     embed.set_author(name=f"Meannings Bot", icon_url=bot.user.display_avatar.url)
     embed.set_thumbnail(url=bot.user.display_avatar.url)
     await ctx.send(embed=embed)
 
 
 @bot.event
-async def on_guild_join(guild:discord.Guild):
+async def on_guild_join(guild: discord.Guild):
     """Update status when bot joins a new server"""
     server_count = len(bot.guilds)
     activity = discord.Activity(
@@ -654,7 +687,7 @@ async def on_guild_join(guild:discord.Guild):
 
 
 @bot.event
-async def on_guild_remove(guild:discord.Guild):
+async def on_guild_remove(guild: discord.Guild):
     """Update status when bot leaves a server"""
     server_count = len(bot.guilds)
     activity = discord.Activity(
@@ -665,13 +698,14 @@ async def on_guild_remove(guild:discord.Guild):
 
 
 @bot.command(name="ping")
-async def ping_command(ctx:commands.Context):
+async def ping_command(ctx: commands.Context):
     """Shows the bot's latency"""
     latency = bot.latency * 1000  # Convert to milliseconds
     embed = discord.Embed(
         title="🏓 Pong!", description=f"Latency: **{latency:.2f} ms**", color=0x00FF88
     )
     await ctx.send(embed=embed)
+
 
 # Start the bot
 if __name__ == "__main__":
