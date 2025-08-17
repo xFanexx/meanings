@@ -672,9 +672,7 @@ async def stats_command(ctx: commands.Context):
                             \n**Users:** {len(bot.users)}\n**Uptime:** {uptime_to_words}",
         color=0x00FF88,
     )
-    embed.set_author(
-        name=f"Meannings Bot", icon_url=bot.user.display_avatar.url
-    )  # noqa: F541
+    embed.set_author(name="Meannings Bot", icon_url=bot.user.display_avatar.url)
     embed.set_thumbnail(url=bot.user.display_avatar.url)
     await ctx.send(embed=embed)
 
