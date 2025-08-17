@@ -52,7 +52,7 @@ jobs:
 
       - name: Run Ruff (Lint)
         run: |
-          ruff check --format github . || (echo "Fix Ruff issues before merging." && exit 1)
+          ruff check --output-format=github . || (echo "Fix Ruff issues before merging." && exit 1)
 
   update-dependencies:
     runs-on: ubuntu-latest
