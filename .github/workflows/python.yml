@@ -1,0 +1,74 @@
+name: Dependency Update & CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # Runs every Sunday at 3:00 PM IST (09:30 UTC)
+    - cron: "30 9 * * 0"
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Cache Poetry Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Install Dependencies
+        run: poetry install --no-root
+
+      - name: Run Black (Check formatting)
+        run: |
+          poetry run black --check --diff --color --quiet . || (echo "Run 'poetry run black .' to fix formatting." && exit 1)
+
+      - name: Run Ruff (Lint)
+        run: |
+          poetry run ruff check --format github . || (echo "Fix Ruff issues before merging." && exit 1)
+
+      - name: Update dependencies (only for schedule/manual)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: poetry update
+
+      - name: Commit updated poetry.lock
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add poetry.lock
+          git diff --quiet || git commit -m "chore: update dependencies [skip ci]"
+
+      - name: Create Pull Request
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: dependency-update
+          title: "chore: update dependencies"
+          body: "This PR updates Python dependencies using Poetry."
+          base: master
+          labels: "dependencies, automated"
