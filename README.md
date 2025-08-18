@@ -25,13 +25,15 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 - **Python** 3.12+
 - **Poetry** 2.x
 - **Discord bot token** (`.env` file)
+- **Curl** 8.15.x
+- **Git**
 
 ## 🚀 Getting Started
 1. Clone the repo:
    ```sh
    git clone https://github.com/xFanexx/meanings.git
    ```
-## Install Peotry (if not installed)
+## Install Poetry (if not installed)
 1. From offical site:
   - Linux, macOS, Windows (WSL)
     ```sh
@@ -49,7 +51,7 @@ Check their offical **Documentation** for more information. [Python-Poerty](http
 
 2. With **PIP**:
 ```py
-pip install peotry
+pip install poetry
 ```
 
 > [!IMPORTANT]
@@ -58,7 +60,7 @@ pip install peotry
 ## Install dependencies
 
 ```py
-peotry install
+poetry install
 ```
 
 > [!NOTE]
@@ -74,7 +76,7 @@ If you don’t have **Poetry** installed, you can still run this project using o
 pip install -r requirements.txt
 ```
 
-## Updating Dependencies
+## Updating Dependencies (PIP)
 
 1. Upgrade a single dependency:
 
