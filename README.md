@@ -1,7 +1,7 @@
 # 🤖 Meanings Bot
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/xFanexx/meanings?style=flat-square&color=blue" alt="License" />
+  <img src="https://img.shields.io/github/license/xFanexx/meanings?style=flat-square&color=purple" alt="License" />
   <img src="https://img.shields.io/github/last-commit/xFanexx/meanings?style=flat-square&color=green" alt="Last Commit" />
   <img src="https://img.shields.io/github/languages/top/xFanexx/meanings?style=flat-square&color=yellow" alt="Top Language" />
   <img src="https://img.shields.io/github/repo-size/xFanexx/meanings?style=flat-square&color=orange" alt="Repo Size" />
