@@ -4,6 +4,7 @@ name: Dependency Update & CI
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 on:
   push:
