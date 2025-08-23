@@ -54,7 +54,8 @@ jobs:
 
       - name: Run Black (Check formatting)
         run: |
-          poetry run black --check --diff --color --quiet . || (echo "Run 'poetry run black .' to fix formatting." && exit 1)
+          poetry run black --version
+          poetry run black --check --diff --color . || (echo "Run 'poetry run black .' to fix formatting." && exit 1)
 
       - name: Run Ruff (Lint)
         run: |
