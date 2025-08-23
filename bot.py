@@ -14,14 +14,16 @@ load_dotenv()
 
 # Bot Setup
 
+
 class MeaningsBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
         intents.message_content = True
         super().__init__(command_prefix="?", intents=intents)
         self.uptime = 0
+
     async def setup_hook(self):
-        asyncio.get_event_loop(). set_debug(True) #Set up debugging for blocking code
+        asyncio.get_event_loop().set_debug(True)  # Set up debugging for blocking code
         self.uptime = discord.utils.utcnow().timestamp()
 
 
@@ -29,7 +31,6 @@ bot = MeaningsBot()
 
 # Whitelisted user IDs who can add meanings
 WHITELISTED_USERS = [ADD_USER_ID_HERE]  # Add more user IDs here # noqa: F821
-
 
 
 @bot.command()
@@ -443,7 +444,6 @@ async def list_meanings(ctx: commands.Context):
     await paginator.start(ctx.channel)  # Start the paginator
 
 
-
 @bot.command(name="deletemeaning")
 async def delete_meaning_command(ctx: commands.Context, *, word: str = None):
     """Deletes a meaning from the database (whitelisted users only)"""
@@ -686,13 +686,13 @@ async def update_status():
 
 
 @bot.event
-async def on_guild_join(guild:discord.Guild):
+async def on_guild_join(guild: discord.Guild):
     if not update_status.is_running():
         update_status.start()
 
-@bot.event
-async def on_guild_remove(guild:discord.Guild):
 
+@bot.event
+async def on_guild_remove(guild: discord.Guild):
     """Update status when bot leaves a server"""
     if not update_status.is_running():
         update_status.start()
