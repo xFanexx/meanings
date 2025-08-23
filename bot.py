@@ -432,15 +432,16 @@ async def list_meanings(ctx: commands.Context):
     # Uses pagination if too many words
     word_list = list(meanings.keys())
     words_per_embed = 15
-    embeds =[
-        discord.Embed(title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
-                      description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
-                      color=0x0099FF
-                      )
-                      for i in range(0, len(word_list), words_per_embed)
-    ] #List of embeds
+    embeds = [
+        discord.Embed(
+            title=f"Available words ({i+1}-{min(i+words_per_embed, len(word_list))} of {len(word_list)})",
+            description=f"1. {"\n- ".join(word.upper() for word in word_list[i : i + words_per_embed])}",
+            color=0x0099FF,
+        )
+        for i in range(0, len(word_list), words_per_embed)
+    ]  # List of embeds
     paginator = ButtonPaginator(embeds)
-    await paginator.start(ctx.channel) #Start the paginator
+    await paginator.start(ctx.channel)  # Start the paginator
 
 
 @bot.command(name="deletemeaning")
@@ -502,7 +503,11 @@ async def delete_meaning_command(ctx: commands.Context, *, word: str = None):
     await ctx.send(embed=embed)
 
     def check(msg: discord.Message):
-        return msg.channel == ctx.channel and msg.author == ctx.author and  msg.content.lower() in ("yes", "no")
+        return (
+            msg.channel == ctx.channel
+            and msg.author == ctx.author
+            and msg.content.lower() in ("yes", "no")
+        )
 
     try:
         answer = await bot.wait_for("message", check=check, timeout=180)
@@ -655,10 +660,9 @@ async def stats_command(ctx: commands.Context):
     if seconds > 0:
         up_time_list.append(f"{seconds} second{'s' if seconds != 1 else ''}")
 
-    uptime_to_words = ' and '.join(up_time_list)
-    meanings : dict = await load_meanings()
-    origins : dict = await load_slang_origins()
-
+    uptime_to_words = " and ".join(up_time_list)
+    meanings: dict = await load_meanings()
+    origins: dict = await load_slang_origins()
 
     embed = discord.Embed(
         title="📊 Bot Statistics",
