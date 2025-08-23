@@ -644,7 +644,7 @@ async def stats_command(ctx:commands.Context):
     await ctx.send(embed=embed)
 
 
-@tasks.loop(minutes=15)
+@tasks.loop(minutes=15, count=1)
 async def update_status():
     server_count = len(bot.guilds)
     activity = discord.Activity(
