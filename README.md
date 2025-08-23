@@ -106,7 +106,7 @@ pip install --upgrade <package-name>
 pip install --upgrade discord.py
 ```
 
-### Then regenerate `requirements.txt`:
+**Then regenerate `requirements.txt`**:
 
 - Create a virtual environment:
 
@@ -132,7 +132,7 @@ This creates a folder called venv in your project.
 source venv/bin/activate
 ```
 
-**Replac `venv` with the name of your virtual environment folder**.
+**Replace `venv` with the name of your virtual environment folder**.
 
 2. Windows (Powershell and CMD)
 
