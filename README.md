@@ -1,12 +1,12 @@
 # 🤖 Meanings Bot
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/xFanexx/meanings?style=flat-square&color=purple" alt="License" />
-  <img src="https://img.shields.io/github/last-commit/xFanexx/meanings?style=flat-square&color=green" alt="Last Commit" />
-  <img src="https://img.shields.io/github/languages/top/xFanexx/meanings?style=flat-square&color=yellow" alt="Top Language" />
-  <img src="https://img.shields.io/github/repo-size/xFanexx/meanings?style=flat-square&color=orange" alt="Repo Size" />
-  <img src="https://img.shields.io/github/languages/code-size/xFanexx/meanings?style=flat-square&color=purple" alt="Code Size" />
-  <img src="https://img.shields.io/github/commit-activity/y/xFanexx/meanings?style=flat-square&color=red" alt="Commit Activity" />
+  <img src="https://img.shields.io/github/license/xFanexx/meanings?style=for-the-badge&color=6f42c1&logo=github" alt="License" />
+  <img src="https://img.shields.io/github/last-commit/xFanexx/meanings?style=for-the-badge&color=2ea043&logo=git" alt="Last Commit" />
+  <img src="https://img.shields.io/github/languages/top/xFanexx/meanings?style=for-the-badge&color=f1e05a&logo=python" alt="Top Language" />
+  <img src="https://img.shields.io/github/repo-size/xFanexx/meanings?style=for-the-badge&color=ff6f00&logo=database" alt="Repo Size" />
+  <img src="https://img.shields.io/github/languages/code-size/xFanexx/meanings?style=for-the-badge&color=6f42c1&logo=code" alt="Code Size" />
+  <img src="https://img.shields.io/github/commit-activity/y/xFanexx/meanings?style=for-the-badge&color=red&logo=githubactions" alt="Commit Activity" />
 </p>
 
 A sleek Discord bot to manage and explore slang meanings, built with Python. Offers public commands for all and admin tools for whitelisted users. Runs on Linux with systemd support!
