@@ -84,8 +84,14 @@ If you don’t have **Poetry** installed, you can still run this project using o
 ### Installation
 
 ```py
-pip install -r requirements.txt
+pip install --no-deps -r requirements.txt
 ```
+
+> [!NOTE]
+> When using `requirements.txt` exported from Poetry, the `--no-deps` flag is required.
+> 
+> This is because the exported file already includes **all direct and transitive dependencies** with exact versions or resolved hashes.  
+> Running pip without `--no-deps` may cause it to try **re-resolving dependencies**, which can lead to conflicts or errors—especially for Git-based dependencies.
 
 ## Updating Dependencies (PIP)
 
@@ -100,10 +106,58 @@ pip install --upgrade <package-name>
 pip install --upgrade discord.py
 ```
 
-Then regenerate `requirements.txt`:
+### Then regenerate `requirements.txt`:
+
+- Create a virtual environment:
+
+1. Linux / MacOS
+
+```bash
+python3 -m venv venv
+```
+
+2. Windows (Powershell and CMD)
+
+```bash
+python -m venv venv
+```
+
+This creates a folder called venv in your project.
+
+- Activate the virtual environment:
+
+1. Linux / MacOS
+
+```bash
+source venv/bin/activate
+```
+
+**Replac `venv` with the name of your virtual environment folder**.
+
+2. Windows (Powershell and CMD)
+
+```bash
+# Powershell
+.\venv\Scripts\Activate.ps1
+
+# CMD
+venv\Scripts\activate.bat
+```
+
+> [!NOTE]
+> If you encounter a "cannot be loaded because running scripts is disabled" error, you may need to run `Set-ExecutionPolicy RemoteSigned -Scope Process` in your PowerShell window to temporarily allow script execution. 
+
+Then regenerate the `.txt`:
 
 ```py
 pip freeze > requirements.txt
+```
+
+After that deactivate it:
+
+```bash
+# Linux, MacOS and Windows
+deactivate
 ```
 
 2. Upgrade all dependencies:
@@ -118,7 +172,7 @@ pip install --upgrade -r requirements.txt
 
 ### Regenerate requirements.txt
 
-After any upgrade:
+After any upgrade activate the virtual environment and update it:
 
 ```py
 pip freeze > requirements.txt
@@ -154,9 +208,7 @@ poetry update
 - Regenerate requirements.txt after updates:
 
 ```bash
-source $(poetry env info --path)/bin/activate
-pip freeze > requirements.txt
-deactivate
+source $(poetry env info --path)/bin/activate && pip freeze > requirements.txt && deactivate
 ```
 
 ---
