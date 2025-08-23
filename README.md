@@ -65,6 +65,16 @@ poetry install
 
 > [!NOTE]
 > This installs all dependencies listed in `pyproject.toml` inside a virtual environment.
+>
+>
+> Since this project is a **Discord bot** (not a distributed Python package), we set:
+>
+> ```toml
+> [tool.poetry]
+> package-mode = false
+>
+> This ensures that `poetry install` only installs dependencies and does not fail with a *“No file/folder found for package”* error.
+
 
 # For Non-Poetry Users
 
