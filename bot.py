@@ -21,7 +21,7 @@ class MeaningsBot(commands.Bot):
         self.uptime = 0
     async def setup_hook(self):
         asyncio.get_event_loop(). set_debug(True) #Set up debugging for blocking code
-        self.up_time = discord.utils.utcnow().timestamp()
+        self.uptime = discord.utils.utcnow().timestamp()
 
 
 bot = MeaningsBot()
