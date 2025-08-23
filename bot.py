@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import json
 import os
 from dotenv import load_dotenv
@@ -13,24 +13,25 @@ load_dotenv()
 
 # Bot Setup
 
-up_time = 0
-
 class MeaningsBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
         intents.message_content = True
         super().__init__(command_prefix="?", intents=intents)
+        self.uptime = 0
     async def setup_hook(self):
         asyncio.get_event_loop(). set_debug(True) #Set up debugging for blocking code
-        global up_time
-        up_time = discord.utils.utcnow().timestamp()
+        self.up_time = discord.utils.utcnow().timestamp()
+
 
 bot = MeaningsBot()
+
 
 # Whitelisted user IDs who can add meanings
 WHITELISTED_USERS = [
     ADD_USER_ID_HERE # Add more user IDs here
 ]
+
 
 @bot.command()
 @commands.is_owner() #Only allow the the owner of the bot to sync
@@ -431,6 +432,7 @@ async def list_meanings(ctx:commands.Context):
     paginator = ButtonPaginator(embeds) 
     await paginator.start(ctx.channel) #Start the paginator
 
+
 @bot.command(name="deletemeaning")
 async def delete_meaning_command(ctx:commands.Context, *, word: str=None):
     """Deletes a meaning from the database (whitelisted users only)"""
@@ -613,9 +615,9 @@ async def delete_origin_command(ctx: commands.Context, *, word: str = None):
 @bot.command(name="stats")
 async def stats_command(ctx:commands.Context):
     """Shows bot statistics"""
-    global up_time
+    uptime = bot.uptime
     """Get uptime and convert to words"""
-    current_uptime = int(discord.utils.utcnow().timestamp() - up_time)
+    current_uptime = int(discord.utils.utcnow().timestamp() - uptime)
     days = current_uptime // 86400
     hours = (current_uptime % 86400) // 3600
     minutes = (current_uptime % 3600) // 60
@@ -642,9 +644,8 @@ async def stats_command(ctx:commands.Context):
     await ctx.send(embed=embed)
 
 
-@bot.event
-async def on_guild_join(guild:discord.Guild):
-    """Update status when bot joins a new server"""
+@tasks.loop(minutes=15)
+async def update_status():
     server_count = len(bot.guilds)
     activity = discord.Activity(
         type=discord.ActivityType.watching,
@@ -652,16 +653,18 @@ async def on_guild_join(guild:discord.Guild):
     )
     await bot.change_presence(activity=activity, status=discord.Status.dnd)
 
+
+@bot.event
+async def on_guild_join(guild:discord.Guild):
+    if not update_status.is_running():
+        update_status.start()
+    
 
 @bot.event
 async def on_guild_remove(guild:discord.Guild):
     """Update status when bot leaves a server"""
-    server_count = len(bot.guilds)
-    activity = discord.Activity(
-        type=discord.ActivityType.watching,
-        name=f"meanings on {server_count} servers ✨",
-    )
-    await bot.change_presence(activity=activity, status=discord.Status.dnd)
+    if not update_status.is_running():
+        update_status.start()
 
 
 @bot.command(name="ping")
