@@ -72,6 +72,7 @@ poetry install
 > ```toml
 > [tool.poetry]
 > package-mode = false
+> ```
 >
 > This ensures that `poetry install` only installs dependencies and does not fail with a *“No file/folder found for package”* error.
 
