@@ -37,13 +37,13 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 1. From offical site:
   - Linux, macOS, Windows (WSL)
 
-```sh
-    curl -sSL https://install.python-poetry.org | python3 -
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
 ```
   - Windows (Powershell)
     
-```sh
-    (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+```bash
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 ```
 
 > [!NOTE]
