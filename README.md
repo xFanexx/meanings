@@ -110,13 +110,13 @@ pip install --upgrade discord.py
 
 - Create a virtual environment:
 
-1. Linux / MacOS
+  - Linux / MacOS
 
 ```bash
 python3 -m venv venv
 ```
 
-2. Windows (Powershell and CMD)
+  - Windows (Powershell and CMD)
 
 ```bash
 python -m venv venv
@@ -126,7 +126,7 @@ This creates a folder called venv in your project.
 
 - Activate the virtual environment:
 
-1. Linux / MacOS
+  - Linux / MacOS
 
 ```bash
 source venv/bin/activate
@@ -134,7 +134,7 @@ source venv/bin/activate
 
 **Replace `venv` with the name of your virtual environment folder**.
 
-2. Windows (Powershell and CMD)
+  - Windows (Powershell and CMD)
 
 ```bash
 # Powershell
