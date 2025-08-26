@@ -36,13 +36,15 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 ## Install Poetry (if not installed)
 1. From offical site:
   - Linux, macOS, Windows (WSL)
-    ```sh
+
+```sh
     curl -sSL https://install.python-poetry.org | python3 -
-    ```
+```
   - Windows (Powershell)
-    ```sh
+    
+```sh
     (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-    ```
+```
 
 > [!NOTE]
 > If you have installed Python through the Microsoft Store, replace `py` with `python` in the command above.
@@ -110,13 +112,13 @@ pip install --upgrade discord.py
 
 - Create a virtual environment:
 
-1. Linux / MacOS
+  - Linux / MacOS
 
 ```bash
 python3 -m venv venv
 ```
 
-2. Windows (Powershell and CMD)
+  - Windows (Powershell and CMD)
 
 ```bash
 python -m venv venv
@@ -126,7 +128,7 @@ This creates a folder called venv in your project.
 
 - Activate the virtual environment:
 
-1. Linux / MacOS
+  - Linux / MacOS
 
 ```bash
 source venv/bin/activate
@@ -134,7 +136,7 @@ source venv/bin/activate
 
 **Replace `venv` with the name of your virtual environment folder**.
 
-2. Windows (Powershell and CMD)
+  - Windows (Powershell and CMD)
 
 ```bash
 # Powershell
@@ -264,3 +266,5 @@ poetry add --dev <package-name> # dev dependency
     </td>
   </tr>
 </table>
+
+![Alt](https://repobeats.axiom.co/api/embed/829d921b5850e576b4837cd5f4c9f6497010a54b.svg "Repobeats analytics image")
