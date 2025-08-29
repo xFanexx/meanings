@@ -41,7 +41,7 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 curl -sSL https://install.python-poetry.org | python3 -
 ```
   - Windows (Powershell)
-    
+
 ```bash
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 ```
@@ -89,10 +89,10 @@ If you don’t have **Poetry** installed, you can still run this project using o
 pip install --no-deps -r requirements.txt
 ```
 
-> [!NOTE]
+> [!WARNING]
 > When using `requirements.txt` exported from Poetry, the `--no-deps` flag is required.
-> 
-> This is because the exported file already includes **all direct and transitive dependencies** with exact versions or resolved hashes.  
+>
+> This is because the exported file already includes **all direct and transitive dependencies** with exact versions or resolved hashes.
 > Running pip without `--no-deps` may cause it to try **re-resolving dependencies**, which can lead to conflicts or errors—especially for Git-based dependencies.
 
 ## Updating Dependencies (PIP)
@@ -147,7 +147,7 @@ venv\Scripts\activate.bat
 ```
 
 > [!NOTE]
-> If you encounter a "cannot be loaded because running scripts is disabled" error, you may need to run `Set-ExecutionPolicy RemoteSigned -Scope Process` in your PowerShell window to temporarily allow script execution. 
+> If you encounter a "cannot be loaded because running scripts is disabled" error, you may need to run `Set-ExecutionPolicy RemoteSigned -Scope Process` in your PowerShell window to temporarily allow script execution.
 
 Then regenerate the `.txt`:
 
