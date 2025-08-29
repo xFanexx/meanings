@@ -90,7 +90,7 @@ If you don’t have **Poetry** installed, you can still run this project using o
 pip install --no-deps -r requirements.txt
 ```
 
-> [!NOTE]
+> [!WARNING]
 > When using `requirements.txt` exported from Poetry, the `--no-deps` flag is required.
 >
 > This is because the exported file already includes **all direct and transitive dependencies** with exact versions or resolved hashes.
