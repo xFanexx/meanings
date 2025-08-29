@@ -268,3 +268,5 @@ poetry add --dev <package-name> # dev dependency
 </table>
 
 ![Alt](https://repobeats.axiom.co/api/embed/829d921b5850e576b4837cd5f4c9f6497010a54b.svg "Repobeats analytics image")
+
+<iframe src="https://contributions.okcode.club/embed.html?username=xFanexx&repo=meanins" width="100%" height="100"></iframe>
