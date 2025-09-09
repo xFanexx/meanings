@@ -19,7 +19,8 @@ A sleek Discord bot to manage and explore slang meanings, built with Python. Off
 - [Commands](commands.md) Check this for all commands
 - **Async file** handling with `aiofiles`
 - Fully **Poetry-managed** project with isolated dependencies
-
+- Check our [Documentation for more information](https://chandramauli-arm64.github.io/meanings-docs/)
+  
 ## Requirements
 
 - **Python** 3.12+
