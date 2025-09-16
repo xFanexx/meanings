@@ -1,3 +1,9 @@
+> [!WARNING]  
+> Development on **meanings** has been discontinued.  
+> I no longer have the time or interest to maintain the project.  
+>  
+> Feel free to use it in your own Discord bot — go wild! :D
+
 # 🤖 Meanings Bot
 
 <p align="center">
